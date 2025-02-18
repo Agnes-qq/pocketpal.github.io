@@ -318,8 +318,8 @@ Header Style
 }
 
 .header-area .main-nav .logo img {
-  height: 30px; /* Adjust the height */
-  width: 200px;  /* Maintain aspect ratio */
+  height: 20px; /* Adjust the height */
+  width: auto;  /* Maintain aspect ratio */
   max-width: 300px; /* Optional: limit max width */
 }
 
