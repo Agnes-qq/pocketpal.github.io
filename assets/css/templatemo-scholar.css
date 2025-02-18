@@ -317,6 +317,12 @@ Header Style
   display: inline-block;
 }
 
+.header-area .main-nav .logo img {
+  height: 40px; /* Adjust the height */
+  width: 200px;  /* Maintain aspect ratio */
+  max-width: 300px; /* Optional: limit max width */
+}
+
 .header-area .main-nav .logo h1 {
   font-size: 36px;
   text-transform: uppercase;
@@ -616,8 +622,9 @@ Header Style
   }
   .header-area .logo {
     margin-left: 0px;
-    margin-top: 30px;
+    margin-top: 0px;
   }
+
   .header-area .menu-trigger {
     display: block !important;
   }
