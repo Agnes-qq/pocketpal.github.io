@@ -318,9 +318,10 @@ Header Style
 }
 
 .header-area .main-nav .logo img {
-  height: 20px; /* Adjust the height */
-  width: auto;  /* Maintain aspect ratio */
-  max-width: 300px; /* Optional: limit max width */
+  width: 20vw;  /* Logo width is 10% of viewport width */
+  height: auto;  /* Maintain aspect ratio */
+  max-width: 300px; /* Prevent it from getting too large */
+  min-width: 100px; /* Ensure it doesn't become too small */
 }
 
 .header-area .main-nav .logo h1 {
