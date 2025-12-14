@@ -81,185 +81,126 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
-          <div class="section-heading text-center">
-            <h2>Security at PocketPal</h2>
-            <p>PocketPal is committed to protecting the security and privacy of user data. This document outlines our comprehensive security measures, architecture, and practices.</p>
-          </div>
+          <div style="margin-top: 0px;">
+            <p style="font-size: 1em; line-height: 1.8; margin-bottom: 30px;">
+              At PocketPal, we take security seriously. This page outlines the security measures we implement to protect your data and ensure secure access to our Services.
+            </p>
 
-          <div style="margin-top: 50px;">
-            <h3>1. Security Architecture</h3>
-            <p>Our security architecture is designed with multiple layers of protection:</p>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">1. Security Architecture</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                Our security architecture is designed with multiple layers of protection:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• <strong>Server-Side Validation:</strong> All role assignments and permissions are validated on the server, not the client</li>
+                <li style="display: list-item;">• <strong>JWT Token Verification:</strong> Authentication tokens are verified with Supabase before granting access</li>
+                <li style="display: list-item;">• <strong>Role-Based Access Control:</strong> Granular permissions ensure users only access features appropriate for their role</li>
+                <li style="display: list-item;">• <strong>Database Security:</strong> Row Level Security (RLS) policies protect sensitive data</li>
+              </ul>
+            </section>
 
-            <h4 style="margin-top: 30px;">Layer 1: Network Security</h4>
-            <ul>
-              <li>TLS/SSL encryption for all data in transit</li>
-              <li>Secure network protocols</li>
-              <li>Firewall protection</li>
-              <li>DDoS mitigation</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">2. Authentication & Authorization</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                We use secure authentication methods to protect your account:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• <strong>Magic Link Authentication:</strong> Passwordless login via secure email links</li>
+                <li style="display: list-item;">• <strong>Email Verification:</strong> All accounts require verified email addresses</li>
+                <li style="display: list-item;">• <strong>Role Whitelisting:</strong> Admin roles are restricted to pre-approved email addresses</li>
+                <li style="display: list-item;">• <strong>Session Management:</strong> Secure session handling with automatic timeout capabilities</li>
+              </ul>
+            </section>
 
-            <h4 style="margin-top: 30px;">Layer 2: Application Security</h4>
-            <ul>
-              <li>Server-side validation of all user inputs</li>
-              <li>Role-based access control (RBAC)</li>
-              <li>Authentication and authorization mechanisms</li>
-              <li>Secure session management</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">3. Data Protection</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                Your data is protected through multiple security measures:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• <strong>Encryption:</strong> Data is encrypted in transit (TLS/SSL) and at rest</li>
+                <li style="display: list-item;">• <strong>Access Controls:</strong> Role-based permissions limit who can access what data</li>
+                <li style="display: list-item;">• <strong>Database Security:</strong> Row Level Security policies ensure users can only access their own data</li>
+                <li style="display: list-item;">• <strong>Secure Storage:</strong> Data is stored in secure cloud infrastructure with industry-standard protections</li>
+              </ul>
+            </section>
 
-            <h4 style="margin-top: 30px;">Layer 3: Data Security</h4>
-            <ul>
-              <li>Encryption at rest</li>
-              <li>Database security with Row Level Security (RLS)</li>
-              <li>Secure data storage</li>
-              <li>Data backup and recovery procedures</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">4. Security Features</h3>
+              <div style="margin-top: 20px;">
+                <div style="padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(135, 206, 250, 0.4); background-color: rgba(135, 206, 250, 0.1);">
+                  <h4 style="font-size: 1.1em; font-weight: 600; margin-bottom: 10px;">Role Tampering Prevention</h4>
+                  <p style="font-size: 0.95em; line-height: 1.6; color: #333;">
+                    Client-side validation detects unauthorized role modifications and automatically logs out affected users.
+                  </p>
+                </div>
+                <div style="padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(144, 238, 144, 0.4); background-color: rgba(144, 238, 144, 0.1);">
+                  <h4 style="font-size: 1.1em; font-weight: 600; margin-bottom: 10px;">Permission-Based Access</h4>
+                  <p style="font-size: 0.95em; line-height: 1.6; color: #333;">
+                    Each role has specific permissions. Admin features check permissions before rendering, preventing unauthorized access.
+                  </p>
+                </div>
+                <div style="padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(255, 182, 193, 0.4); background-color: rgba(255, 182, 193, 0.1);">
+                  <h4 style="font-size: 1.1em; font-weight: 600; margin-bottom: 10px;">Security Monitoring</h4>
+                  <p style="font-size: 0.95em; line-height: 1.6; color: #333;">
+                    Continuous logging and monitoring help us detect and respond to security incidents quickly.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-            <h4 style="margin-top: 30px;">Layer 4: Infrastructure Security</h4>
-            <ul>
-              <li>Secure cloud infrastructure (AWS, Supabase)</li>
-              <li>Regular security updates and patches</li>
-              <li>Intrusion detection and monitoring</li>
-              <li>Access controls and logging</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">5. Security Best Practices</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                We follow industry best practices to maintain security:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• <strong>Principle of Least Privilege:</strong> Users start with minimal permissions and only receive additional access when necessary</li>
+                <li style="display: list-item;">• <strong>Regular Security Audits:</strong> We regularly review security events and access logs</li>
+                <li style="display: list-item;">• <strong>Environment Variables:</strong> Sensitive configuration is stored securely in environment variables</li>
+                <li style="display: list-item;">• <strong>Secure Development:</strong> Code follows security best practices and is regularly reviewed</li>
+              </ul>
+            </section>
 
-            <h3 style="margin-top: 40px;">2. Authentication & Authorization</h3>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">6. Your Role in Security</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                You can help keep your account secure by:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• Keeping your email account secure (since we use email-based authentication)</li>
+                <li style="display: list-item;">• Not sharing your account credentials with others</li>
+                <li style="display: list-item;">• Logging out when using shared devices</li>
+                <li style="display: list-item;">• Reporting any suspicious activity to <a href="mailto:pocketpalrevolution@gmail.com" style="color: #007bff; text-decoration: underline;">pocketpalrevolution@gmail.com</a></li>
+              </ul>
+            </section>
 
-            <h4 style="margin-top: 30px;">2.1 Authentication Methods</h4>
-            <h5>Magic Link Authentication</h5>
-            <ul>
-              <li>Passwordless authentication via secure email links</li>
-              <li>Time-limited, single-use tokens</li>
-              <li>Secure token generation and validation</li>
-              <li>Email verification required for all accounts</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">7. Security Incident Response</h3>
+              <p style="font-size: 1em; line-height: 1.8;">
+                If we become aware of a security breach that affects your personal information, we will notify you and any affected institutions as required by law. We have procedures in place to respond to security incidents promptly and effectively.
+              </p>
+            </section>
 
-            <h5 style="margin-top: 20px;">JWT Token Verification</h5>
-            <ul>
-              <li>All authentication tokens verified with Supabase</li>
-              <li>Token expiration and refresh mechanisms</li>
-              <li>Secure token storage</li>
-              <li>Token revocation capabilities</li>
-            </ul>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">8. Future Security Enhancements</h3>
+              <p style="font-size: 1em; line-height: 1.8; margin-bottom: 15px;">
+                We are continuously working to improve our security. Planned enhancements include:
+              </p>
+              <ul style="font-size: 1em; line-height: 1.8; padding-left: 30px; list-style-type: disc !important; list-style-position: inside;">
+                <li style="display: list-item;">• Multi-factor authentication (MFA) for admin accounts</li>
+                <li style="display: list-item;">• Enhanced session management with automatic timeouts</li>
+                <li style="display: list-item;">• Comprehensive audit logging for all admin actions</li>
+                <li style="display: list-item;">• IP whitelisting for administrative access (optional)</li>
+              </ul>
+            </section>
 
-            <h4 style="margin-top: 30px;">2.2 Authorization Framework</h4>
-            <h5>Role-Based Access Control (RBAC)</h5>
-            <ul>
-              <li><strong>Tech Admin:</strong> Full system access, user management</li>
-              <li><strong>School Admin:</strong> Student and group management</li>
-              <li><strong>Student:</strong> Basic access to student features</li>
-            </ul>
-
-            <h4 style="margin-top: 30px;">2.3 Session Management</h4>
-            <ul>
-              <li>Secure session handling</li>
-              <li>Session timeout capabilities</li>
-              <li>Automatic logout on security events</li>
-              <li>Session token rotation</li>
-            </ul>
-
-            <h4 style="margin-top: 30px;">2.4 Account Security</h4>
-            <ul>
-              <li>Email verification required</li>
-              <li>Account lockout after failed attempts</li>
-              <li>Suspicious activity detection</li>
-              <li>Password reset procedures (via magic links)</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">3. Data Protection</h3>
-
-            <h4 style="margin-top: 30px;">3.1 Encryption</h4>
-            <h5>Encryption in Transit</h5>
-            <ul>
-              <li>TLS 1.2 or higher for all connections</li>
-              <li>HTTPS for all web traffic</li>
-              <li>Encrypted API communications</li>
-              <li>Certificate pinning (where applicable)</li>
-            </ul>
-
-            <h5 style="margin-top: 20px;">Encryption at Rest</h5>
-            <ul>
-              <li>Database encryption</li>
-              <li>Encrypted backups</li>
-              <li>Encrypted file storage</li>
-              <li>Key management best practices</li>
-            </ul>
-
-            <h4 style="margin-top: 30px;">3.2 Database Security</h4>
-            <h5>Row Level Security (RLS)</h5>
-            <ul>
-              <li>RLS policies on all sensitive tables</li>
-              <li>Users can only access their own data</li>
-              <li>Admin access controlled by policies</li>
-              <li>Policy-based data isolation</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">4. Security Features</h3>
-
-            <h4 style="margin-top: 30px;">4.1 Role Tampering Prevention</h4>
-            <ul>
-              <li>Detection of unauthorized role modifications</li>
-              <li>Automatic logout on role mismatch</li>
-              <li>Real-time role verification</li>
-              <li>All role assignments validated server-side</li>
-            </ul>
-
-            <h4 style="margin-top: 30px;">4.2 Security Monitoring</h4>
-            <ul>
-              <li>Real-time security event logging</li>
-              <li>Intrusion detection systems</li>
-              <li>Anomaly detection</li>
-              <li>Automated alerting</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">5. Security Best Practices</h3>
-
-            <h4 style="margin-top: 30px;">5.1 Development Security</h4>
-            <ul>
-              <li>Input validation and sanitization</li>
-              <li>Output encoding</li>
-              <li>Secure error handling</li>
-              <li>Regular code reviews</li>
-              <li>Regular dependency updates</li>
-              <li>Vulnerability scanning</li>
-            </ul>
-
-            <h4 style="margin-top: 30px;">5.2 Operational Security</h4>
-            <ul>
-              <li>Principle of least privilege</li>
-              <li>Regular access reviews</li>
-              <li>Multi-factor authentication for admins</li>
-              <li>Secure access procedures</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">6. User Security Responsibilities</h3>
-            <p>Users are responsible for:</p>
-            <ul>
-              <li>Keeping email accounts secure (authentication method)</li>
-              <li>Not sharing account credentials</li>
-              <li>Logging out on shared devices</li>
-              <li>Reporting suspicious activity</li>
-              <li>Using strong, unique email passwords</li>
-              <li>Enabling two-factor authentication on email (if available)</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">7. Security Incident Response</h3>
-            <p>If you discover a security vulnerability, please report it to us immediately:</p>
-            <p><strong>Email:</strong> pocketpalrevolution@gmail.com<br>
-            <strong>Subject:</strong> SECURITY INCIDENT</p>
-            <p>We appreciate responsible disclosure and will respond within 24 hours, with investigation within 48 hours.</p>
-
-            <h3 style="margin-top: 40px;">8. Compliance</h3>
-            <p>We maintain compliance with:</p>
-            <ul>
-              <li>GDPR/UK GDPR</li>
-              <li>CCPA/CPRA</li>
-              <li>FERPA (educational context)</li>
-              <li>Industry best practices (OWASP, NIST, ISO 27001 principles)</li>
-            </ul>
-
-            <h3 style="margin-top: 40px;">9. Contact Information</h3>
-            <p>For security questions or concerns:</p>
-            <p><strong>Email:</strong> pocketpalrevolution@gmail.com</p>
+            <section style="margin-top: 40px;">
+              <h3 style="font-size: 1.5em; font-weight: 600; margin-bottom: 20px;">9. Contact Us</h3>
+              <p style="font-size: 1em; line-height: 1.8;">
+                If you have security concerns or questions, please contact us at <a href="mailto:pocketpalrevolution@gmail.com" style="color: #007bff; text-decoration: underline;">pocketpalrevolution@gmail.com</a>. For more information about how we protect your data, please see our <a href="privacy" style="color: #007bff; text-decoration: underline;">Privacy Notice</a>.
+              </p>
+            </section>
           </div>
         </div>
       </div>
