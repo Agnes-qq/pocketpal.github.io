@@ -19,6 +19,66 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <style>
+      #video-cover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      #video-cover:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4) !important;
+      }
+      #video-cover .play-button {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      #video-cover:hover .play-button {
+        transform: scale(1.15);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6) !important;
+      }
+      a[href*="duke.edu"]:hover {
+        background-color: #f8f9fa !important;
+        color: #764ba2 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+      }
+      .section-heading a:hover {
+        color: #764ba2 !important;
+        transform: translateX(5px);
+      }
+      #watch-video-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6) !important;
+      }
+      #watch-video-btn:active {
+        transform: translateY(-1px);
+      }
+      #video-section {
+        transition: opacity 0.5s ease;
+      }
+      .logo {
+        display: flex !important;
+        align-items: center !important;
+        transform: translateY(-3px);
+      }
+      .logo img {
+        height: 32px !important;
+        width: auto !important;
+        max-height: 32px !important;
+      }
+      .search-input {
+        margin-left: 25px !important;
+        transform: translateY(-3px);
+        display: flex !important;
+        align-items: center !important;
+      }
+      .main-nav {
+        align-items: center !important;
+        display: flex !important;
+      }
+      header .container .row .col-12 {
+        display: flex !important;
+        align-items: center !important;
+      }
+    </style>
 <!--
 
 our courses
@@ -78,21 +138,27 @@ our courses
   </header>
   <!-- ***** Header Area End ***** -->
 
-  <div class="main-banner" id="top">
+  <div class="main-banner" id="top" style="padding: 140px 0 80px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <div class="owl-carousel owl-banner">
-            <div class="item item-1">
-              <div class="header-text">
-                <span class="category">University</span>
-                <h2>Welcome to PocketPal Solutions</h2>
-                <p>AI-Native Campus Operating System</p>
-                <div class="buttons">
-                  <div class="icon-button">
-                    <li class="scroll-to-section"><a href="#events"><i class="fa fa-play"></i> What's PocketPal?</a>
-                  </div>
-                </div>
+          <div class="header-text" style="text-align: center; color: white; margin-bottom: 50px;">
+            <h2 style="color: white; font-size: 3.5rem; font-weight: 700; margin-bottom: 40px; margin-top: 20px;">Welcome to PocketPal Solutions</h2>
+            <p style="color: white; font-size: 1.5rem; margin-bottom: 50px;">AI-Native Campus Operating System</p>
+          </div>
+          <div class="col-lg-12" style="margin-top: 30px; display: flex; justify-content: center; align-items: center;">
+            <button id="watch-video-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 18px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
+              <i class="fa fa-play" style="font-size: 18px;"></i>
+              Watch Demo Video
+            </button>
+          </div>
+          <div class="col-lg-12" id="video-section" style="margin-top: 25px; display: none; justify-content: center;">
+            <div id="video-container" style="position: relative; width: 100%; max-width: 1200px; transition: all 0.5s ease;">
+              <div id="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 10px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.3);">
+                <video id="pocketpal-video" width="100%" height="100%" controls style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px; object-fit: contain; background: #000;">
+                  <source src="assets/videos/PocketPal Demo v2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>
@@ -101,12 +167,15 @@ our courses
     </div>
   </div>
 
-  <div class="services section" id="services">
+  <div class="services section" id="services" style="padding-top: 0px;">
     <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="section-heading">
               <h2>About us</h2>
+              <a href="https://masters.pratt.duke.edu/news/from-idea-to-mvp-pocketpal/" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 15px; color: #667eea; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease;">
+                Learn More About Our Story <i class="fa fa-arrow-right" style="margin-left: 8px;"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -444,12 +513,6 @@ our courses
             </div>
           </div>
         </div>
-        <div class="col-lg-12">
-          <video width="100%" controls>
-            <source src="assets/videos/PocketPal Demo v2.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
       </div>
     </div>
   </div>
@@ -531,4 +594,36 @@ our courses
   
       window.location.href = "mailto:pocketpalrevolution@gmail.com?subject=" + subject + "&body=" + body;
     }
+
+    // Video button click handler
+    document.addEventListener('DOMContentLoaded', function() {
+      var watchBtn = document.getElementById('watch-video-btn');
+      var videoSection = document.getElementById('video-section');
+      var video = document.getElementById('pocketpal-video');
+      
+      if (watchBtn && videoSection && video) {
+        watchBtn.addEventListener('click', function() {
+          // Hide button
+          watchBtn.style.display = 'none';
+          
+          // Show video section with smooth animation
+          videoSection.style.display = 'flex';
+          videoSection.style.opacity = '0';
+          setTimeout(function() {
+            videoSection.style.opacity = '1';
+            videoSection.style.transition = 'opacity 0.5s ease';
+          }, 10);
+          
+          // Scroll to video smoothly
+          setTimeout(function() {
+            videoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+          
+          // Play video after a short delay
+          setTimeout(function() {
+            video.play();
+          }, 600);
+        });
+      }
+    });
 </script>
