@@ -20,7 +20,7 @@ const homeSectionNavItems = [
 const services = [
   {
     iconClass: 'icon1',
-    image: '/assets/images/service-01.png',
+    image: 'assets/images/service-01.png',
     alt: 'Innovative AI solutions',
     title: 'Innovative AI Solutions',
     description:
@@ -28,7 +28,7 @@ const services = [
   },
   {
     iconClass: 'icon2',
-    image: '/assets/images/service-02.png',
+    image: 'assets/images/service-02.png',
     alt: 'Data-driven student support',
     title: 'Data-Driven & Student-Centric',
     description:
@@ -36,7 +36,7 @@ const services = [
   },
   {
     iconClass: 'icon3',
-    image: '/assets/images/service-03.png',
+    image: 'assets/images/service-03.png',
     alt: 'Scalable campus vision',
     title: 'Scalable Campus Vision',
     description:
@@ -82,13 +82,13 @@ const supportItems = [
 
 const teamMembers = [
   {
-    image: '/assets/images/member-01.jpg',
+    image: 'assets/images/member-01.jpg',
     role: 'Co-founder',
     name: 'Angela Liang',
     linkedin: 'https://www.linkedin.com/in/angelaliang2019/'
   },
   {
-    image: '/assets/images/member-02.jpg',
+    image: 'assets/images/member-02.jpg',
     role: 'Co-founder',
     name: 'Agnes Yan',
     linkedin: 'https://www.linkedin.com/in/agnesyan/'
@@ -97,19 +97,19 @@ const teamMembers = [
 
 const previews = [
   {
-    image: '/assets/images/event-01.jpg',
+    image: 'assets/images/event-01.jpg',
     category: 'Personalization',
     title: 'Onboarding Survey',
     description: 'Onboarding surveys and continuous habit analysis tailored to each individual'
   },
   {
-    image: '/assets/images/event-02.jpg',
+    image: 'assets/images/event-02.jpg',
     category: 'Smart Scheduling',
     title: 'Task Prediction',
     description: 'Habit-learning algorithm evolving with the interaction with users'
   },
   {
-    image: '/assets/images/event-03.jpg',
+    image: 'assets/images/event-03.jpg',
     category: 'Community',
     title: 'Groups and Sharing',
     description: 'Engage, share, and grow'
@@ -344,7 +344,7 @@ export function HomePage() {
                         background: '#000'
                       }}
                     >
-                      <source src="/assets/videos/PocketPal Demo v2.mp4" type="video/mp4" />
+                      <source src="assets/videos/PocketPal Demo v2.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>

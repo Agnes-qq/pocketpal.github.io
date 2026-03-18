@@ -28,7 +28,7 @@ export function SiteHeader({
           <div className="col-12">
             <nav className={`main-nav${home ? ' main-nav--home' : ''}`}>
               <a href="index.html" className="logo">
-                <img src="/assets/images/PocketPallogov2.png" alt="PocketPal" />
+                <img src="assets/images/PocketPallogov2.png" alt="PocketPal" />
               </a>
 
               {!home ? (
