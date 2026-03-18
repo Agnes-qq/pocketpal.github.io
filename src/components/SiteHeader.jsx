@@ -26,48 +26,37 @@ export function SiteHeader({
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <nav className="main-nav">
+            <nav className={`main-nav${home ? ' main-nav--home' : ''}`}>
               <a href="index.html" className="logo">
                 <img src="/assets/images/PocketPallogov2.png" alt="PocketPal" />
               </a>
 
-              {home ? (
-                <div className="search-input">
-                  <form id="search" action="#" onSubmit={(event) => event.preventDefault()}>
-                    <input
-                      type="text"
-                      placeholder="Type Something"
-                      id="searchText"
-                      name="searchKeyword"
-                      aria-label="Search"
-                    />
-                    <i className="fa fa-search"></i>
-                  </form>
-                </div>
+              {!home ? (
+                <>
+                  <ul className={`nav${mobileMenuOpen ? ' menu-open' : ''}`}>
+                    {navItems.map((item) => (
+                      <li className="scroll-to-section" key={item.id}>
+                        <a
+                          href={item.href}
+                          className={home && activeSection === item.id ? 'active' : undefined}
+                          onClick={home ? (event) => onNavigate(event, item.href) : undefined}
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    type="button"
+                    className={`menu-trigger${mobileMenuOpen ? ' active' : ''}`}
+                    onClick={onToggleMenu}
+                    aria-label="Toggle menu"
+                  >
+                    <span>Menu</span>
+                  </button>
+                </>
               ) : null}
-
-              <ul className={`nav${mobileMenuOpen ? ' menu-open' : ''}`}>
-                {navItems.map((item) => (
-                  <li className="scroll-to-section" key={item.id}>
-                    <a
-                      href={item.href}
-                      className={home && activeSection === item.id ? 'active' : undefined}
-                      onClick={home ? (event) => onNavigate(event, item.href) : undefined}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                className={`menu-trigger${mobileMenuOpen ? ' active' : ''}`}
-                onClick={onToggleMenu}
-                aria-label="Toggle menu"
-              >
-                <span>Menu</span>
-              </button>
             </nav>
           </div>
         </div>

@@ -9,6 +9,14 @@ const supportCategoryLabels = {
   'campus-life': 'Campus Life'
 };
 
+const homeSectionNavItems = [
+  { id: 'top', label: 'Home', href: '#top' },
+  { id: 'services', label: 'About Us', href: '#services' },
+  { id: 'team', label: 'Team', href: '#team' },
+  { id: 'events', label: 'Demo', href: '#events' },
+  { id: 'contact', label: 'Contact', href: '#contact' }
+];
+
 const services = [
   {
     iconClass: 'icon1',
@@ -32,7 +40,7 @@ const services = [
     alt: 'Scalable campus vision',
     title: 'Scalable Campus Vision',
     description:
-      'PocketPal is designed to scale across universities as a shared intelligent layer for academic coordination — with a long-term vision of becoming the operating system that powers smarter, healthier campuses.'
+      'PocketPal is designed to scale across universities as a shared intelligent layer for academic coordination — with a long-term vision of becoming the operating system that empowers a smarter, and healthier campus life.'
   }
 ];
 
@@ -40,7 +48,7 @@ const accordionItems = [
   {
     id: 'collapseTwo',
     headingId: 'headingTwo',
-    title: 'AI-Driven Academic Task & Schedule Orchestration',
+    title: 'AI-Driven Academic Task & Scheduling Orchestration',
     body: 'PocketPal continuously translates academic requirements into actionable plans and adaptive schedules, helping students manage complex workloads without manual planning.'
   },
   {
@@ -92,19 +100,19 @@ const previews = [
     image: '/assets/images/event-01.jpg',
     category: 'Personalization',
     title: 'Onboarding Survey',
-    description: 'Onboarding surveys and continuous habit analysis tailored to individual'
+    description: 'Onboarding surveys and continuous habit analysis tailored to each individual'
   },
   {
     image: '/assets/images/event-02.jpg',
     category: 'Smart Scheduling',
     title: 'Task Prediction',
-    description: 'Habit-learning algorithm evolves with the interaction with users'
+    description: 'Habit-learning algorithm evolving with the interaction with users'
   },
   {
     image: '/assets/images/event-03.jpg',
     category: 'Community',
     title: 'Groups and Sharing',
-    description: 'Create, share, and engage'
+    description: 'Engage, share, and grow'
   }
 ];
 
@@ -255,6 +263,25 @@ export function HomePage() {
         onToggleMenu={() => setMobileMenuOpen((value) => !value)}
         onNavigate={handleNavClick}
       />
+
+      <nav className="floating-section-nav" aria-label="Page sections">
+        <div className="floating-section-nav__inner">
+          <span className="floating-section-nav__title">On this page</span>
+          <ul className="floating-section-nav__list">
+            {homeSectionNavItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={item.href}
+                  className={activeSection === item.id ? 'active' : undefined}
+                  onClick={(event) => handleNavClick(event, item.href)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
 
       <div
         className="main-banner"
@@ -418,7 +445,7 @@ export function HomePage() {
             <div className="col-lg-12 text-center">
               <div className="section-heading">
                 <h2>Our AI-Powered Support</h2>
-                <p className="support-cloud-subtitle">Explore PocketPal capabilities by category through a word cloud of high-impact features.</p>
+                <p className="support-cloud-subtitle">Explore PocketPal capabilities by category</p>
               </div>
             </div>
           </div>
