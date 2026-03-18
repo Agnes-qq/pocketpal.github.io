@@ -118,3 +118,6 @@ This means the React app still uses the existing branding, images, fonts, videos
 - **Static assets currently used by React:** `public/assets/`, `public/vendor/`
 - **Legacy/original static-site source copies:** root `assets/` and root `vendor/`
 - **Built output:** `dist/`
+
+
+npm run deploy again when you want to publish new changes.
