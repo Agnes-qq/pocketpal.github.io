@@ -12,7 +12,7 @@ const supportCategoryLabels = {
 const homeSectionNavItems = [
   { id: 'top', label: 'Home', href: '#top' },
   { id: 'services', label: 'About Us', href: '#services' },
-  { id: 'team', label: 'Team', href: '#team' },
+  { id: 'fun-facts', label: 'Team', href: '#fun-facts' },
   { id: 'events', label: 'Demo', href: '#events' },
   { id: 'contact', label: 'Contact', href: '#contact' }
 ];
@@ -97,26 +97,26 @@ const teamMembers = [
 
 const previews = [
   {
-    image: 'assets/images/event-01.jpg',
+    images: ['assets/images/onboard1.png', 'assets/images/onboard2.png', 'assets/images/onboard3.png'],
     category: 'Personalization',
     title: 'Onboarding Survey',
     description: 'Onboarding surveys and continuous habit analysis tailored to each individual'
   },
   {
-    image: 'assets/images/event-02.jpg',
+    images: [],
     category: 'Smart Scheduling',
     title: 'Task Prediction',
     description: 'Habit-learning algorithm evolving with the interaction with users'
   },
   {
-    image: 'assets/images/event-03.jpg',
+    images: ['assets/images/groupchat1.png', 'assets/images/groupchat2.png'],
     category: 'Community',
     title: 'Groups and Sharing',
     description: 'Engage, share, and grow'
   }
 ];
 
-const navSectionIds = ['top', 'services', 'team', 'events', 'contact'];
+const navSectionIds = ['top', 'services', 'fun-facts', 'team', 'events', 'contact'];
 
 function CounterValue({ target, duration = 1000 }) {
   const [value, setValue] = useState(0);
@@ -152,6 +152,8 @@ export function HomePage() {
   const [headerBackground, setHeaderBackground] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
   const [showVideo, setShowVideo] = useState(false);
+  const [expandedPreview, setExpandedPreview] = useState(null);
+  const [popupImageIndex, setPopupImageIndex] = useState(0);
   const [openAccordionId, setOpenAccordionId] = useState(null);
   const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
   const videoSectionRef = useRef(null);
@@ -165,6 +167,11 @@ export function HomePage() {
         items: supportItems.filter((item) => item.category === category)
       })),
     []
+  );
+
+  const selectedPreview = useMemo(
+    () => previews.find((preview) => preview.title === expandedPreview) ?? null,
+    [expandedPreview]
   );
 
   useEffect(() => {
@@ -226,6 +233,34 @@ export function HomePage() {
     };
   }, [showVideo]);
 
+  useEffect(() => {
+    if (!expandedPreview) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setExpandedPreview(null);
+        return;
+      }
+
+      if (!selectedPreview?.images.length) {
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        setPopupImageIndex((value) => (value + 1) % selectedPreview.images.length);
+      }
+
+      if (event.key === 'ArrowLeft') {
+        setPopupImageIndex((value) => (value - 1 + selectedPreview.images.length) % selectedPreview.images.length);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [expandedPreview, selectedPreview]);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (!element) {
@@ -250,6 +285,22 @@ export function HomePage() {
     const subject = encodeURIComponent(`New Message from ${formValues.name}`);
     const body = encodeURIComponent(`Email: ${formValues.email}\n\n${formValues.message}`);
     window.location.href = `mailto:pocketpalrevolution@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const showNextPopupImage = () => {
+    if (!selectedPreview?.images.length) {
+      return;
+    }
+
+    setPopupImageIndex((value) => (value + 1) % selectedPreview.images.length);
+  };
+
+  const showPreviousPopupImage = () => {
+    if (!selectedPreview?.images.length) {
+      return;
+    }
+
+    setPopupImageIndex((value) => (value - 1 + selectedPreview.images.length) % selectedPreview.images.length);
   };
 
   return (
@@ -470,7 +521,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <div className="section fun-facts">
+      <div className="section fun-facts" id="fun-facts">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -528,12 +579,7 @@ export function HomePage() {
               <div className="col-lg-12 col-md-6" key={preview.title}>
                 <div className="item">
                   <div className="row">
-                    <div className="col-lg-3">
-                      <div className="image">
-                        <img src={preview.image} alt={preview.title} />
-                      </div>
-                    </div>
-                    <div className="col-lg-9">
+                    <div className="col-lg-12">
                       <ul>
                         <li>
                           <span className="category">{preview.category}</span>
@@ -543,9 +589,24 @@ export function HomePage() {
                           <h6>{preview.description}</h6>
                         </li>
                       </ul>
-                      <a href="#top" onClick={(event) => handleNavClick(event, '#top')} aria-label={`View ${preview.title}`}>
+                      <button
+                        type="button"
+                        className={`demo-expand-button${expandedPreview === preview.title ? ' is-open' : ''}`}
+                        onClick={() =>
+                          preview.images.length
+                            ? setExpandedPreview((value) => {
+                                const nextValue = value === preview.title ? null : preview.title;
+                                setPopupImageIndex(0);
+                                return nextValue;
+                              })
+                            : undefined
+                        }
+                        aria-label={`Expand ${preview.title}`}
+                        aria-expanded={expandedPreview === preview.title}
+                        disabled={!preview.images.length}
+                      >
                         <i className="fa fa-angle-right"></i>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -554,6 +615,28 @@ export function HomePage() {
           </div>
         </div>
       </div>
+
+      {expandedPreview && selectedPreview ? (
+        <div className="demo-popup-overlay" role="dialog" aria-modal="true" aria-label={`${expandedPreview} preview gallery`}>
+          <div className="demo-popup-backdrop" onClick={() => setExpandedPreview(null)}></div>
+          <div className={`demo-popup-window${expandedPreview === 'Onboarding Survey' ? ' demo-popup-window--compact' : ''}`}>
+            <button type="button" className="demo-popup-close" onClick={() => setExpandedPreview(null)} aria-label="Close preview">
+              <i className="fa fa-times"></i>
+            </button>
+            <div className="demo-popup-gallery">
+              <button type="button" className="demo-popup-nav demo-popup-nav--left" onClick={showPreviousPopupImage} aria-label="Previous image">
+                <i className="fa fa-angle-left"></i>
+              </button>
+              <button type="button" className="demo-popup-image-button" onClick={showNextPopupImage} aria-label="Next image">
+                <img src={selectedPreview.images[popupImageIndex]} alt={`${expandedPreview} preview ${popupImageIndex + 1}`} />
+              </button>
+              <button type="button" className="demo-popup-nav demo-popup-nav--right" onClick={showNextPopupImage} aria-label="Next image">
+                <i className="fa fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <div className="contact-us section" id="contact">
         <div className="container">
