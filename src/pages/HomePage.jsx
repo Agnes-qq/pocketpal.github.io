@@ -430,7 +430,10 @@ export function HomePage() {
                   rel="noopener noreferrer"
                   className="story-link"
                 >
-                  Learn More About Our Story <i className="fa fa-arrow-right" style={{ marginLeft: '8px' }}></i>
+                  <span className="story-link__label">Learn More About Our Story</span>
+                  <span className="story-link__icon" aria-hidden="true">
+                    <i className="fa fa-arrow-right"></i>
+                  </span>
                 </a>
               </div>
             </div>
