@@ -149,6 +149,7 @@ function CounterValue({ target, duration = 1000 }) {
 export function HomePage() {
   const [loaded, setLoaded] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [headerBackground, setHeaderBackground] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
   const [showVideo, setShowVideo] = useState(false);
@@ -315,8 +316,17 @@ export function HomePage() {
         onNavigate={handleNavClick}
       />
 
-      <nav className="floating-section-nav" aria-label="Page sections">
+      <nav className={`floating-section-nav${sidebarExpanded ? ' is-expanded' : ' is-collapsed'}`} aria-label="Page sections">
         <div className="floating-section-nav__inner">
+          <button
+            type="button"
+            className="floating-section-nav__toggle"
+            onClick={() => setSidebarExpanded((value) => !value)}
+            aria-label={sidebarExpanded ? 'Collapse section navigation' : 'Expand section navigation'}
+            aria-expanded={sidebarExpanded}
+          >
+            <i className={`fa ${sidebarExpanded ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
+          </button>
           <span className="floating-section-nav__title">On this page</span>
           <ul className="floating-section-nav__list">
             {homeSectionNavItems.map((item) => (
@@ -325,8 +335,10 @@ export function HomePage() {
                   href={item.href}
                   className={activeSection === item.id ? 'active' : undefined}
                   onClick={(event) => handleNavClick(event, item.href)}
+                  aria-label={item.label}
                 >
-                  {item.label}
+                  <span className="floating-section-nav__dot"></span>
+                  <span className="floating-section-nav__label">{item.label}</span>
                 </a>
               </li>
             ))}
