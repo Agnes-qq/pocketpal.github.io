@@ -31,32 +31,30 @@ export function SiteHeader({
                 <img src="assets/images/PocketPallogov2.png" alt="PocketPal" />
               </a>
 
-              {!home ? (
-                <>
-                  <ul className={`nav${mobileMenuOpen ? ' menu-open' : ''}`}>
-                    {navItems.map((item) => (
-                      <li className="scroll-to-section" key={item.id}>
-                        <a
-                          href={item.href}
-                          className={home && activeSection === item.id ? 'active' : undefined}
-                          onClick={home ? (event) => onNavigate(event, item.href) : undefined}
-                        >
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+              <>
+                <ul className={`nav${mobileMenuOpen ? ' menu-open' : ''}`}>
+                  {navItems.map((item) => (
+                    <li className="scroll-to-section" key={item.id}>
+                      <a
+                        href={item.href}
+                        className={home && activeSection === item.id ? 'active' : undefined}
+                        onClick={home ? (event) => onNavigate(event, item.href) : undefined}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
 
-                  <button
-                    type="button"
-                    className={`menu-trigger${mobileMenuOpen ? ' active' : ''}`}
-                    onClick={onToggleMenu}
-                    aria-label="Toggle menu"
-                  >
-                    <span>Menu</span>
-                  </button>
-                </>
-              ) : null}
+                <button
+                  type="button"
+                  className={`menu-trigger${mobileMenuOpen ? ' active' : ''}`}
+                  onClick={onToggleMenu}
+                  aria-label="Toggle menu"
+                >
+                  <span>Menu</span>
+                </button>
+              </>
             </nav>
           </div>
         </div>

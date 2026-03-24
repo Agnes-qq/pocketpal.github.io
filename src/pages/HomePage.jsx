@@ -103,7 +103,7 @@ const previews = [
     description: 'Onboarding surveys and continuous habit analysis tailored to each individual'
   },
   {
-    images: [],
+    images: ['assets/images/task-prediction-coming-soon.svg'],
     category: 'Smart Scheduling',
     title: 'Task Prediction',
     description: 'Habit-learning algorithm evolving with the interaction with users'
@@ -174,6 +174,7 @@ export function HomePage() {
     () => previews.find((preview) => preview.title === expandedPreview) ?? null,
     [expandedPreview]
   );
+  const hasMultiplePopupImages = (selectedPreview?.images.length ?? 0) > 1;
 
   useEffect(() => {
     document.title = 'PocketPal Solutions';
@@ -494,11 +495,6 @@ export function HomePage() {
                   tasks or report outcomes, PocketPal actively shapes academic behavior, aligning students, schedules, and support systems in a
                   privacy-first way.
                 </p>
-                <div className="main-button">
-                  <a href="#services" onClick={(event) => handleNavClick(event, '#services')}>
-                    Discover More
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -639,15 +635,24 @@ export function HomePage() {
               <i className="fa fa-times"></i>
             </button>
             <div className="demo-popup-gallery">
-              <button type="button" className="demo-popup-nav demo-popup-nav--left" onClick={showPreviousPopupImage} aria-label="Previous image">
-                <i className="fa fa-angle-left"></i>
-              </button>
-              <button type="button" className="demo-popup-image-button" onClick={showNextPopupImage} aria-label="Next image">
+              {hasMultiplePopupImages ? (
+                <button type="button" className="demo-popup-nav demo-popup-nav--left" onClick={showPreviousPopupImage} aria-label="Previous image">
+                  <i className="fa fa-angle-left"></i>
+                </button>
+              ) : null}
+              <button
+                type="button"
+                className="demo-popup-image-button"
+                onClick={hasMultiplePopupImages ? showNextPopupImage : undefined}
+                aria-label={hasMultiplePopupImages ? 'Next image' : `${expandedPreview} preview`}
+              >
                 <img src={selectedPreview.images[popupImageIndex]} alt={`${expandedPreview} preview ${popupImageIndex + 1}`} />
               </button>
-              <button type="button" className="demo-popup-nav demo-popup-nav--right" onClick={showNextPopupImage} aria-label="Next image">
-                <i className="fa fa-angle-right"></i>
-              </button>
+              {hasMultiplePopupImages ? (
+                <button type="button" className="demo-popup-nav demo-popup-nav--right" onClick={showNextPopupImage} aria-label="Next image">
+                  <i className="fa fa-angle-right"></i>
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
