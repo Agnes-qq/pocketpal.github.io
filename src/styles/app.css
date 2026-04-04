@@ -435,11 +435,168 @@ header .container .row .col-12 {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.team .team-member:hover .main-content img {
+.team .team-member:not(.team-flip):hover .main-content img {
   transform: translateY(-4px);
   box-shadow:
     0 24px 44px rgba(67, 51, 133, 0.18),
     0 0 0 1px rgba(132, 110, 221, 0.26);
+}
+
+/* Match other sections: templatemo .team used 140px top padding for avatar overflow when
+   cards led the section; with a heading row, use normal .section padding and space below title
+   like .events .section-heading so "Team" sits high and faces don't overlap the headline. */
+.team.section {
+  padding-top: 0;
+}
+
+.team .section-heading {
+  margin-bottom: 14px;
+}
+
+.team .section-heading h2 {
+  margin-top: 0;
+}
+
+.team-section-intro {
+  margin-bottom: 28px;
+  padding: 0 8px;
+}
+
+/* Front-face photos sit ~110px above the card (templatemo); reserve space so they never cover the intro copy */
+.team-cards-row {
+  padding-top: 124px;
+}
+
+.team-section-intro__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #1a1a1a;
+  margin: 0 0 12px;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.team-section-intro__sub {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #5a5a5a;
+  margin: 0;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Team flip cards */
+.team-member.team-flip {
+  perspective: 1100px;
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+}
+
+.team-member.team-flip:focus-visible {
+  outline: 2px solid #1e0e79;
+  outline-offset: 6px;
+  border-radius: 28px;
+}
+
+/* Grid stack: both faces share one cell so row height = max(front, back) — avoids taller backs overlapping cards below */
+.team-flip-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.team-member.team-flip.is-flipped .team-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.team-flip-front,
+.team-flip-back {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-width: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.team-flip-back {
+  transform: rotateY(180deg);
+}
+
+.team .team-member .team-flip-front .main-content {
+  min-height: 100%;
+}
+
+/* Match front card; min-height fills cell when the other face is taller */
+.team .team-member .main-content--back {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 120px 30px 24px 30px;
+  text-align: center;
+}
+
+.team .team-member .main-content--back .category {
+  margin-top: -10px;
+}
+
+.team .team-member .main-content--back h4 {
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.team-flip-bio {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a4a4a;
+  margin: 0;
+  text-align: center;
+}
+
+.team-flip-hint {
+  font-size: 11px;
+  color: #1e0e79;
+  opacity: 0.72;
+  margin: 16px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.team-flip-hint--back {
+  margin-top: 7px;
+  margin-bottom: 0;
+  padding-top: 0;
+}
+
+/* Preserve horizontal centering from templatemo (translateX) while adding the front lift */
+.team .team-member.team-flip:not(.is-flipped):hover .team-flip-front .main-content img {
+  transform: translateX(-110px) translateY(-4px);
+  box-shadow:
+    0 24px 44px rgba(67, 51, 133, 0.18),
+    0 0 0 1px rgba(132, 110, 221, 0.26);
+}
+
+.team .team-member.team-flip.is-flipped:hover .team-flip-back .main-content img {
+  transform: translateX(-110px) translateY(-4px);
+  box-shadow:
+    0 24px 44px rgba(67, 51, 133, 0.18),
+    0 0 0 1px rgba(132, 110, 221, 0.26);
+}
+
+.team .team-member.team-flip.is-flipped .team-flip-front .main-content img {
+  transform: translateX(-110px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-flip-inner {
+    transition-duration: 0.01ms;
+  }
 }
 
 .demo-expand-button {
@@ -940,19 +1097,66 @@ header .container .row .col-12 {
     margin-top: 110px;
   }
 
+  .team.section {
+    padding-top: 0;
+  }
+
+  .team .section-heading {
+    margin-bottom: 12px;
+  }
+
+  .team-section-intro {
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .team-cards-row {
+    padding-top: 102px;
+  }
+
+  .team-section-intro__title {
+    font-size: 1.08rem;
+    margin-bottom: 10px;
+  }
+
+  .team-section-intro__sub {
+    font-size: 0.95rem;
+  }
+
   .team-member {
     margin-bottom: 110px;
   }
 
-  .team-member img {
+  .team-member .team-flip-front .main-content img,
+  .team-member .team-flip-back .main-content img {
     max-width: 168px;
     top: -88px;
     left: 50%;
     transform: translateX(-50%);
   }
 
+  .team .team-member .main-content--back {
+    padding: 100px 22px 20px 22px;
+  }
+
+  .team .team-member .main-content--back .category {
+    margin-top: -8px;
+  }
+
   .team-member .main-content {
     padding: 116px 22px 28px 22px;
+  }
+
+  .team .team-member.team-flip:not(.is-flipped):hover .team-flip-front .main-content img {
+    transform: translateX(-50%) translateY(-4px);
+  }
+
+  .team .team-member.team-flip.is-flipped:hover .team-flip-back .main-content img {
+    transform: translateX(-50%) translateY(-4px);
+  }
+
+  .team .team-member.team-flip.is-flipped .team-flip-front .main-content img {
+    transform: translateX(-50%);
   }
 
   .events {
@@ -1045,6 +1249,10 @@ header .container .row .col-12 {
 }
 
 @media (max-width: 480px) {
+  .team-cards-row {
+    padding-top: 92px;
+  }
+
   .main-banner {
     padding: 96px 0 40px 0 !important;
   }
@@ -1111,9 +1319,20 @@ header .container .row .col-12 {
     padding: 62px 18px 24px 18px;
   }
 
-  .team-member img {
+  .team-member .team-flip-front .main-content img,
+  .team-member .team-flip-back .main-content img {
     max-width: 148px;
     top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .team .team-member .main-content--back {
+    padding: 90px 18px 18px 18px;
+  }
+
+  .team .team-member .main-content--back .category {
+    margin-top: -6px;
   }
 
   .team-member .main-content {

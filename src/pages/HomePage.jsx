@@ -85,13 +85,25 @@ const teamMembers = [
     image: 'assets/images/member-01.jpg',
     role: 'Co-founder',
     name: 'Angela Liang',
-    linkedin: 'https://www.linkedin.com/in/angelaliang2019/'
+    linkedin: 'https://www.linkedin.com/in/angelaliang2019/',
+    profileBio:
+      'Sets product vision and strategy, leads partnerships, and runs go-to-market for students and partner schools.'
   },
   {
     image: 'assets/images/member-02.jpg',
     role: 'Co-founder',
     name: 'Agnes Yan',
-    linkedin: 'https://www.linkedin.com/in/agnesyan/'
+    linkedin: 'https://www.linkedin.com/in/agnesyan/',
+    profileBio:
+      'Owns core platform and features, ships iterations quickly, and keeps engineering and day-to-day operations on track.'
+  },
+  {
+    image: 'assets/images/member-ken.jpg',
+    role: 'Infrastructure & Security Lead',
+    name: 'Ken Ho',
+    linkedin: 'https://www.linkedin.com/in/kenhofc/',
+    profileBio:
+      'Leads infrastructure and security, strengthening the reliability, scalability, and technical foundation of the platform.'
   }
 ];
 
@@ -156,6 +168,7 @@ export function HomePage() {
   const [expandedPreview, setExpandedPreview] = useState(null);
   const [popupImageIndex, setPopupImageIndex] = useState(0);
   const [openAccordionId, setOpenAccordionId] = useState(null);
+  const [teamFlippedKey, setTeamFlippedKey] = useState(null);
   const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
   const videoSectionRef = useRef(null);
   const videoRef = useRef(null);
@@ -556,24 +569,94 @@ export function HomePage() {
       <div className="team section" id="team">
         <div className="container">
           <div className="row">
-            {teamMembers.map((member) => (
-              <div className="col-lg-3 col-md-6" key={member.name}>
-                <div className="team-member">
-                  <div className="main-content">
-                    <img src={member.image} alt={member.name} />
-                    <span className="category">{member.role}</span>
-                    <h4>{member.name}</h4>
-                    <ul className="social-icons">
-                      <li>
-                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} LinkedIn`}>
-                          <i className="fab fa-linkedin"></i>
-                        </a>
-                      </li>
-                    </ul>
+            <div className="col-lg-12 text-center">
+              <div className="section-heading">
+                <h2>Team</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 text-center">
+              <div className="team-section-intro">
+                <h3 className="team-section-intro__title">
+                  Built by a team spanning product, engineering, and infrastructure
+                </h3>
+                <p className="team-section-intro__sub">
+                  We work closely with students and institutional partners to turn real campus needs into practical,
+                  scalable tools.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row team-cards-row">
+            {teamMembers.map((member) => {
+              const flipKey = member.name;
+              const isFlipped = teamFlippedKey === flipKey;
+
+              const toggleFlip = () => {
+                setTeamFlippedKey((current) => (current === flipKey ? null : flipKey));
+              };
+
+              const onTeamCardKeyDown = (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  toggleFlip();
+                }
+              };
+
+              return (
+                <div className="col-lg-3 col-md-6" key={member.name}>
+                  <div
+                    className={`team-member team-flip${isFlipped ? ' is-flipped' : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isFlipped}
+                    aria-label={
+                      isFlipped
+                        ? `${member.name}, responsibilities shown. Activate to return to front.`
+                        : `${member.name}. Activate to read responsibilities.`
+                    }
+                    onClick={toggleFlip}
+                    onKeyDown={onTeamCardKeyDown}
+                  >
+                    <div className="team-flip-inner">
+                      <div className="team-flip-front">
+                        <div className="main-content">
+                          <img src={member.image} alt="" />
+                          <span className="category">{member.role}</span>
+                          <h4>{member.name}</h4>
+                          {member.linkedin ? (
+                            <ul className="social-icons">
+                              <li>
+                                <a
+                                  href={member.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={`${member.name} on LinkedIn`}
+                                  onClick={(event) => event.stopPropagation()}
+                                >
+                                  <i className="fab fa-linkedin"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          ) : null}
+                          <p className="team-flip-hint">View role</p>
+                        </div>
+                      </div>
+                      <div className="team-flip-back">
+                        <div className="main-content main-content--back">
+                          <img src={member.image} alt="" />
+                          <span className="category">{member.role}</span>
+                          <h4>{member.name}</h4>
+                          <p className="team-flip-bio">{member.profileBio}</p>
+                          <p className="team-flip-hint team-flip-hint--back">Back</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
