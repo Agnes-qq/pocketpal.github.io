@@ -1,9 +1,9 @@
 const homeNavItems = [
   { id: 'top', label: 'Home', href: '#top' },
-  { id: 'services', label: 'About us', href: '#services' },
+  { id: 'services', label: 'Our story', href: '#services' },
   { id: 'team', label: 'Team', href: '#team' },
-  { id: 'events', label: 'Demo Overview', href: '#events' },
-  { id: 'contact', label: 'Contact us', href: '#contact' }
+  { id: 'faq', label: 'FAQ', href: '#faq' },
+  { id: 'contact', label: 'Contact', href: '#contact' }
 ];
 
 const legalNavItems = homeNavItems.map((item) => ({
