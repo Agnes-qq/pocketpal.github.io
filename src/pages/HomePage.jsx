@@ -554,8 +554,8 @@ export function HomePage() {
                   A team focused on the campus layer
                 </h3>
                 <p className="team-section-intro__sub">
-                  PocketPal was founded by Angela Liang and Agnes Yan. We build with students and partner schools toward the AI-native campus —
-                  shipping incrementally, not promising magic overnight.
+                  PocketPal was founded by Angela Liang and Agnes Yan. We build with students and partner schools to deliver practical AI that
+                  improves student outcomes and campus operations.
                 </p>
               </div>
             </div>
