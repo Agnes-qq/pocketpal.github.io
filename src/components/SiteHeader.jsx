@@ -1,6 +1,7 @@
 const homeNavItems = [
   { id: 'top', label: 'Home', href: '#top' },
   { id: 'services', label: 'Our story', href: '#services' },
+  { id: 'news', label: 'News', href: '#news' },
   { id: 'team', label: 'Team', href: '#team' },
   { id: 'faq', label: 'FAQ', href: '#faq' },
   { id: 'contact', label: 'Contact', href: '#contact' }

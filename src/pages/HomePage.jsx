@@ -7,6 +7,7 @@ const homeSectionNavItems = [
   { id: 'top', label: 'Home', href: '#top' },
   { id: 'problem', label: 'The gap', href: '#problem' },
   { id: 'services', label: 'Our story', href: '#services' },
+  { id: 'news', label: 'News', href: '#news' },
   { id: 'traction', label: 'Capabilities', href: '#traction' },
   { id: 'team', label: 'Team', href: '#team' },
   { id: 'faq', label: 'FAQ', href: '#faq' },
@@ -46,6 +47,21 @@ const heroDemoTabs = [
   }
 ];
 
+/** Program and press coverage; each item is one tab in the News section. */
+const newsCoverageItems = [
+  {
+    id: 'duke-pratt',
+    tabLabel: 'Duke Engineering',
+    headline: 'From Idea to MVP: PocketPal',
+    outlet: 'Pratt School of Engineering · Duke master’s programs news',
+    dateline: 'Durham, N.C. · November 20, 2025',
+    abstract:
+      'Duke’s Pratt School of Engineering profiles PocketPal’s path from student founders to a testable MVP: co-founders Angela Liang and Agnes Yan (Duke FinTech, class of 2025) built an AI-assisted platform for academic planning, study-group matching, and progress insight—developed through Duke FinTech’s Incubate course with mentorship from faculty and the program’s entrepreneurship community. The story describes how PocketPal turns isolated scheduling into coordinated peer learning and how the team plans to extend pilots beyond Duke.',
+    url: 'https://masters.pratt.duke.edu/news/from-idea-to-mvp-pocketpal/',
+    urlLabel: 'Read the full article on Duke’s site'
+  }
+];
+
 const heroPillars = [
   {
     title: 'Coordinated learning',
@@ -63,18 +79,27 @@ const heroPillars = [
 
 const campusCapabilities = [
   {
-    title: 'Peer coordination & groups',
-    body:
+    id: 'peers',
+    title: 'Study groups & peer support',
+    summary:
+      'Helps students find study partners and form groups that fit what they are taking without manual reach-out, group assignment by admin, and constant manual follow-ups. Gentle check-ins keep people on track, and your team gets simple tools to organize demand at scale.',
+    technical:
       'Course- and major-aware study partner matching, accountability pairs, automated check-ins, and staff tools to create and manage groups — so high volumes of peer requests do not all land in one inbox.'
   },
   {
-    title: 'Planning & academic workload',
-    body:
+    id: 'planning',
+    title: 'Plans for the real semester',
+    summary:
+      'Turns syllabi and deadlines into a clear week-by-week plan that updates when life gets busy. Students see what to do next; plans stay aligned with how the term actually unfolds.',
+    technical:
       'Syllabus upload and deadline extraction, AI-assisted task breakdown and time estimates, habit-aware scheduling, and hooks for class and campus calendars so student plans stay tied to real term rhythm.'
   },
   {
-    title: 'Analytics for student success teams',
-    body:
+    id: 'analytics',
+    title: 'Insight for student success teams',
+    summary:
+      'Shows how students are connecting and engaging over time—at a useful level for improving programs, not watching individuals. Fits alongside the systems your campus already runs on.',
+    technical:
       'Admin views for group activity, engagement trends, and semester rollups with exportable stats — aggregate signals from how students use coordination features, designed to complement (not replace) your SIS and LMS.'
   }
 ];
@@ -146,7 +171,7 @@ const teamMembers = [
   }
 ];
 
-const navSectionIds = ['top', 'problem', 'services', 'traction', 'team', 'faq', 'cta', 'contact'];
+const navSectionIds = ['top', 'problem', 'services', 'news', 'traction', 'team', 'faq', 'cta', 'contact'];
 
 export function HomePage() {
   const [loaded, setLoaded] = useState(false);
@@ -158,12 +183,19 @@ export function HomePage() {
   const [heroPaneIndex, setHeroPaneIndex] = useState(0);
   const [openFaqId, setOpenFaqId] = useState(null);
   const [teamFlippedKey, setTeamFlippedKey] = useState(null);
+  const [tractionFlippedId, setTractionFlippedId] = useState(null);
+  const [newsTabId, setNewsTabId] = useState(newsCoverageItems[0].id);
   const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
   const videoRef = useRef(null);
 
   const activeHeroTab = useMemo(() => heroDemoTabs.find((t) => t.id === heroTabId) ?? heroDemoTabs[0], [heroTabId]);
 
   const tabSlideCount = activeHeroTab.slides.length;
+
+  const activeNewsItem = useMemo(
+    () => newsCoverageItems.find((item) => item.id === newsTabId) ?? newsCoverageItems[0],
+    [newsTabId]
+  );
 
   const activeHeroSlide = useMemo(
     () => activeHeroTab.slides[Math.min(heroPaneIndex, Math.max(0, tabSlideCount - 1))] ?? activeHeroTab.slides[0],
@@ -346,18 +378,6 @@ export function HomePage() {
                   Explore capabilities
                 </button>
               </div>
-              <div className="hero-trust-strip hero-trust-strip--split">
-                <span className="hero-trust-strip__label">In the news</span>
-                <a
-                  href="https://masters.pratt.duke.edu/news/from-idea-to-mvp-pocketpal/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hero-trust-strip__link"
-                >
-                  Duke Pratt: from idea to MVP
-                  <i className="fa fa-arrow-right hero-trust-strip__chevron" aria-hidden="true"></i>
-                </a>
-              </div>
             </div>
             <div className="col-lg-7">
               <div className="hero-demo-shell" id="product-tour" aria-label="Product preview carousel">
@@ -495,18 +515,70 @@ export function HomePage() {
                 <p key={index}>{paragraph}</p>
               ))}
               <p className="pp-story__link-wrap">
-                <a
-                  href="https://masters.pratt.duke.edu/news/from-idea-to-mvp-pocketpal/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="story-link"
-                >
-                  <span className="story-link__label">Read the Duke Pratt feature: from idea to MVP</span>
+                <a href="#news" className="story-link" onClick={(event) => handleNavClick(event, '#news')}>
+                  <span className="story-link__label">Program and press coverage — News</span>
                   <span className="story-link__icon" aria-hidden="true">
                     <i className="fa fa-arrow-right"></i>
                   </span>
                 </a>
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section pp-news" id="news">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2 text-center">
+              <div className="section-heading">
+                <h2>News</h2>
+                <p className="support-cloud-subtitle">
+                  Coverage and program features, with a short abstract for each item. Follow the link for the full story.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+              <div className="pp-news-shell">
+                <div className="pp-news-tabs" role="tablist" aria-label="News coverage">
+                  {newsCoverageItems.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={newsTabId === item.id}
+                      aria-controls="pp-news-panel"
+                      id={`pp-news-tab-${item.id}`}
+                      className={`pp-news-tab${newsTabId === item.id ? ' is-active' : ''}`}
+                      onClick={() => setNewsTabId(item.id)}
+                    >
+                      {item.tabLabel}
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className="pp-news-panel"
+                  role="tabpanel"
+                  id="pp-news-panel"
+                  aria-labelledby={`pp-news-tab-${newsTabId}`}
+                >
+                  <p className="pp-news-panel__outlet">{activeNewsItem.outlet}</p>
+                  <h3 className="pp-news-panel__headline">{activeNewsItem.headline}</h3>
+                  <p className="pp-news-panel__dateline">{activeNewsItem.dateline}</p>
+                  <p className="pp-news-panel__abstract">{activeNewsItem.abstract}</p>
+                  <a
+                    href={activeNewsItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pp-news-panel__cta"
+                  >
+                    {activeNewsItem.urlLabel}
+                    <i className="fa fa-arrow-right pp-news-panel__cta-icon" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -519,21 +591,59 @@ export function HomePage() {
               <div className="section-heading">
                 <h2>What PocketPal is built to do</h2>
                 <p className="support-cloud-subtitle">
-                  Three parts of the campus layer — peer programs, student planning, and team-facing visibility — the same themes you flip through
-                  in the hero product tour above.
+                  Three parts of the campus layer — peer programs, student planning, and team-facing visibility — the same themes you browse in the
+                  hero product tour above. Each card starts in plain language; flip it for product and integration detail.
                 </p>
               </div>
             </div>
           </div>
           <div className="row">
-            {campusCapabilities.map((item) => (
-              <div className="col-lg-4 col-md-12" key={item.title}>
-                <div className="pp-traction-card">
-                  <h3 className="pp-traction-card__title">{item.title}</h3>
-                  <p className="pp-traction-card__body">{item.body}</p>
+            {campusCapabilities.map((item) => {
+              const isFlipped = tractionFlippedId === item.id;
+
+              const toggleTractionFlip = () => {
+                setTractionFlippedId((current) => (current === item.id ? null : item.id));
+              };
+
+              const onTractionCardKeyDown = (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  toggleTractionFlip();
+                }
+              };
+
+              return (
+                <div className="col-lg-4 col-md-12" key={item.id}>
+                  <div
+                    className={`pp-traction-card pp-traction-card--flip${isFlipped ? ' is-flipped' : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isFlipped}
+                    aria-label={
+                      isFlipped
+                        ? `${item.title}: technical details shown. Activate to return to summary.`
+                        : `${item.title}: summary. Activate to show technical details.`
+                    }
+                    onClick={toggleTractionFlip}
+                    onKeyDown={onTractionCardKeyDown}
+                  >
+                    <div className="pp-traction-flip-inner">
+                      <div className="pp-traction-flip-front">
+                        <h3 className="pp-traction-card__title">{item.title}</h3>
+                        <p className="pp-traction-card__summary">{item.summary}</p>
+                        <p className="pp-traction-flip-hint">Technical details</p>
+                      </div>
+                      <div className="pp-traction-flip-back">
+                        <p className="pp-traction-flip-back-label">Technical overview</p>
+                        <p className="pp-traction-flip-back-topic">{item.title}</p>
+                        <p className="pp-traction-card__technical">{item.technical}</p>
+                        <p className="pp-traction-flip-hint pp-traction-flip-hint--back">Back to summary</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
