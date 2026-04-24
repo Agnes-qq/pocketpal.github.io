@@ -213,9 +213,14 @@ export function HomePage() {
       const threshold = headerText && header ? headerText.offsetHeight - header.offsetHeight : 50;
       setHeaderBackground(scroll >= threshold);
 
+      /** Document Y of section top; offsetTop alone is wrong across mixed offsetParents. */
+      const sectionDocumentTop = (element) => element.getBoundingClientRect().top + scroll;
+
+      const activationLine = scroll + 160;
+
       const currentSection = [...navSectionIds].reverse().find((sectionId) => {
         const element = document.getElementById(sectionId);
-        return element && scroll + 140 >= element.offsetTop;
+        return element && activationLine >= sectionDocumentTop(element);
       });
 
       if (currentSection) {
