@@ -188,6 +188,18 @@ export function HomePage() {
   const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
   const videoRef = useRef(null);
 
+  /**
+   * Shared scroll offset for both "active tab" detection and click-to-section landing.
+   * We measure the visible sticky/fixed bars instead of hardcoding pixel guesses.
+   */
+  const getStickyViewportOffset = () => {
+    const header = document.querySelector('header');
+    const sectionGuide = document.getElementById('section-guide-nav');
+    const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+    const guideBottom = sectionGuide?.getBoundingClientRect().bottom ?? 0;
+    return Math.max(headerBottom, guideBottom, 0) + 10;
+  };
+
   const activeHeroTab = useMemo(() => heroDemoTabs.find((t) => t.id === heroTabId) ?? heroDemoTabs[0], [heroTabId]);
 
   const tabSlideCount = activeHeroTab.slides.length;
@@ -213,15 +225,31 @@ export function HomePage() {
       const threshold = headerText && header ? headerText.offsetHeight - header.offsetHeight : 50;
       setHeaderBackground(scroll >= threshold);
 
-      /** Document Y of section top; offsetTop alone is wrong across mixed offsetParents. */
-      const sectionDocumentTop = (element) => element.getBoundingClientRect().top + scroll;
+      const activationViewportY = getStickyViewportOffset();
+      const activationLine = scroll + activationViewportY;
 
-      const activationLine = scroll + 160;
+      /**
+       * Determine active section by where the activation line sits within real section bounds
+       * (top <= line < bottom), not just by which top we've passed.
+       */
+      const sections = navSectionIds
+        .map((sectionId) => {
+          const element = document.getElementById(sectionId);
+          if (!element) {
+            return null;
+          }
+          const rect = element.getBoundingClientRect();
+          const top = rect.top + scroll;
+          const bottom = rect.bottom + scroll;
+          return { sectionId, top, bottom };
+        })
+        .filter(Boolean);
 
-      const currentSection = [...navSectionIds].reverse().find((sectionId) => {
-        const element = document.getElementById(sectionId);
-        return element && activationLine >= sectionDocumentTop(element);
-      });
+      const inRangeSection = sections.find((section) => activationLine >= section.top && activationLine < section.bottom);
+      const currentSection =
+        inRangeSection?.sectionId ??
+        [...sections].reverse().find((section) => activationLine >= section.top)?.sectionId ??
+        'top';
 
       if (currentSection) {
         setActiveSection(currentSection);
@@ -234,10 +262,7 @@ export function HomePage() {
     if (window.location.hash) {
       window.setTimeout(() => {
         const sectionId = window.location.hash.replace('#', '');
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        scrollToSection(sectionId, 'auto');
       }, 150);
     }
 
@@ -268,13 +293,16 @@ export function HomePage() {
     };
   }, [activeHeroSlide]);
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId, behavior = 'smooth') => {
     const element = document.getElementById(sectionId);
     if (!element) {
       return;
     }
 
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const scroll = window.scrollY;
+    const sectionTop = element.getBoundingClientRect().top + scroll;
+    const targetY = Math.max(0, sectionTop - getStickyViewportOffset());
+    window.scrollTo({ top: targetY, behavior });
     window.history.replaceState(null, '', `#${sectionId}`);
     setMobileMenuOpen(false);
     setSectionGuideOpen(false);
